@@ -112,6 +112,11 @@ abstract class SpecBaseObject implements SpecObjectInterface, DocumentContextInt
                         }
                         break;
                 }
+            } elseif ($type == 'cebe\openapi\spec\Paths') {
+                //iterate Paths array and instantiate so that references are followed
+                foreach ($data[$property] as $key => $item) {
+                    $this->_properties[$property][$key] = $this->instantiate($type, $item);
+                }
             } else {
                 $this->_properties[$property] = $this->instantiate($type, $data[$property]);
             }
